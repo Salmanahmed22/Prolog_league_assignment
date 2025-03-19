@@ -1,12 +1,22 @@
-# importing league_data
+% importing league_data
 :- consult(league_data).
 
+% TASK 1
 
-# TASK 1
-# if there is no player in the given team
-players_in_team(_, []).
+players_in_team(Team, List) :-
+    collect_players(Team, [], RevList),
+    % Reverse to maintain order of finding the players
+    reverse(RevList, List),
+    % stopping emidiatly to prevent backtracking  
+    !.  
 
-players_in_team(Team, [Player | Rest]) :-
+collect_players(Team, Acc, List) :-
     player(Player, Team, _),
-    players_in_team(Team, Rest).
+    % prevent dublicates
+    \+ member(Player, Acc),  
+    collect_players(Team, [Player|Acc], List).
+
+% Base case
+collect_players(_, List, List).
+
 
