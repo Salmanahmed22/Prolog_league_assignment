@@ -17,6 +17,8 @@ collect_players(Team, Acc, List) :-
     collect_players(Team, [Player|Acc], List).
 
 % Base case
-collect_players(_, List, List).
+collect_players(_, Acc, List) :-
+    Acc = List.
+
 
 
