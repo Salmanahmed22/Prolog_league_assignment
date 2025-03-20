@@ -46,6 +46,23 @@ teams_by_country(Country, N, Count, Teams):-
 
 teams_by_country(_, N, N, _):- !.
 
+% ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- %
+
+% TASK 3
+most_successful_team(Team) :-
+    best_team([], '', 0, Team).
+
+best_team(Visited, CurrentBest, MaxWins, BestTeam) :-
+    team(TeamName, _, NumWins),
+    not_found(TeamName, Visited), 
+    ( NumWins > MaxWins ->
+        best_team([TeamName | Visited], TeamName, NumWins, BestTeam)  
+    ;
+        best_team([TeamName | Visited], CurrentBest, MaxWins, BestTeam)  
+    ),
+    !.
+
+best_team(_, BestTeam, _, BestTeam).  
 
 % Task 4
 matches_of_team(Team, L):-
@@ -66,8 +83,6 @@ team_matches(_, Matches, Matches):- !.
 % ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- %
 
 
-
-
 % Task 5
 
 num_matches_of_team(Team, N):-
@@ -83,21 +98,25 @@ team_matches(Team, N, Count, Matches):-
 
 team_matches(_, N, N, _):- !.
 
+% ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- %
 
-% TASK 3
-most_successful_team(Team) :-
-    best_team(Team,0,[]).
+% Task 6
 
-best_team(Team, Max_Num_of_winning_times,Teams):-
-    team(TeamName,_,Num_of_winning_times),
-    not_found(TeamName,Teams),
-    (Num_of_winning_times > Max_Num_of_winning_times ->
-        best_team(TeamName,Num_of_winning_times,[TeamName|Teams])
-        ;
-        best_team(Team,Max_Num_of_winning_times,[Team|Teams])
+top_scorer(P):-
+    helper_top_scorer([], 0, '', P).
+
+helper_top_scorer(Players, N, CurrentBest, BestPlayer):-
+    goals(Player, Num_of_goals),
+    not_found(Player, Players), 
+    ( Num_of_goals > N ->
+        helper_top_scorer([Player | Players], Num_of_goals, Player, BestPlayer)  
+    ;
+    helper_top_scorer([Player | Players], N, CurrentBest, BestPlayer)  
     ),
     !.
 
+helper_top_scorer(_, _,BestPlayer, BestPlayer).  
 
+% ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- %
 
-
+% Task 7
