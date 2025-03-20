@@ -15,7 +15,7 @@ team(porto, portugal, 7).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% Players Info %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Player(Name, Team, Position) 
- 
+
 player(messi, barcelona, forward).  
 player(ronaldo, real_madrid, forward).  
 player(pogba, manchester_united, midfielder).  
