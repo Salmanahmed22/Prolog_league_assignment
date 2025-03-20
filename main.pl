@@ -34,6 +34,11 @@ collect_players(_, Acc, List) :-
 team_count_by_country(Country, N):-
     teams_by_country(Country, 0, N, []).
 
+% ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- %
+
+
+
+
 
 teams_by_country(Country, N, Count, Teams):-
     team(Name, Country, _), 
