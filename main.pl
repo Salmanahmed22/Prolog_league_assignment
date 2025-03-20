@@ -29,15 +29,12 @@ collect_players(Team, Acc, List) :-
 collect_players(_, Acc, List) :-
     Acc = List.
 
+% ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- %
+
 % Task 2
 
 team_count_by_country(Country, N):-
     teams_by_country(Country, 0, N, []).
-
-% ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- %
-
-
-
 
 
 teams_by_country(Country, N, Count, Teams):-
@@ -48,6 +45,25 @@ teams_by_country(Country, N, Count, Teams):-
     !.
 
 teams_by_country(_, N, N, _):- !.
+
+
+% Task 4
+matches_of_team(Team, L):-
+    team_matches(Team, [], RevL),
+    myReverse(RevL,[],L).
+
+team_matches(Team, Matches, Matches2):-
+    (match(Team, Team2, Team1Goals, Team2Goals), 
+            Match = (Team, Team2, Team1Goals, Team2Goals);
+        match(Team2, Team, Team1Goals, Team2Goals), 
+            Match = (Team2, Team, Team1Goals, Team2Goals)),
+    not_found(Match, Matches), 
+    team_matches(Team, [Match | Matches], Matches2),
+    !.
+
+team_matches(_, Matches, Matches):- !.
+
+% ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- %
 
 
 
