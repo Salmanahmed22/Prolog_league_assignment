@@ -35,11 +35,29 @@ team_count_by_country(Country, N):-
     teams_by_country(Country, 0, N, []).
 
 
-teams_by_country(Country, N, Count, Teams) :-
+teams_by_country(Country, N, Count, Teams):-
     team(Name, Country, _), 
     not_found(Name, Teams),
     N1 is N+1,
     teams_by_country(Country, N1, Count, [Name|Teams]),
     !.
 
-teams_by_country(_, N, N, _) :- !.
+teams_by_country(_, N, N, _):- !.
+
+
+
+
+% Task 5
+
+num_matches_of_team(Team, N):-
+    team_matches(Team, 0, N, []).
+
+team_matches(Team, N, Count, Matches):-
+    ( match(Team, Team2, _, _), Match = (Team, Team2);
+        match(Team2, Team, _, _), Match = (Team2, Team)),
+    not_found(Match, Matches),  
+    N1 is N+1,
+    team_matches(Team, N1, Count, [Match | Matches]),
+    !.
+
+team_matches(_, N, N, _):- !.
