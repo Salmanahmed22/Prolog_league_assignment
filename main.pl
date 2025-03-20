@@ -1,9 +1,15 @@
 % importing league_data
 :- consult(league_data).
 
+% Helper functions
+
 not_found(_, []) :- !.
 not_found(X, [X|_]) :- !,fail.
 not_found(X, [_|T]) :- not_found(X, T).
+
+myReverse([],Acc,Acc).
+myReverse([H|T],Acc,Rev):- myReverse(T,[H|Acc],Rev).
+myReverse(List,Rev):- myReverse(List,[],Rev).
 
 % TASK 1
 
@@ -16,26 +22,12 @@ players_in_team(Team, List) :-
 collect_players(Team, Acc, List) :-
     player(Player, Team, _),
     % prevent dublicates
-    \+ visited(Player, Acc),
+    not_found(Player, Acc),
     collect_players(Team, [Player|Acc], List).
 
 % Base case no new player added
 collect_players(_, Acc, List) :-
     Acc = List.
-
-% predicate to search it the player is found in the accumalative list.
-visited(Player,[Player|_]).
-
-visited(Player,[_|Tail]):-
-    visited(Player,Tail).
-
-myReverse([],Acc,Acc).
-
-myReverse([H|T],Acc,Rev):-
-    myReverse(T,[H|Acc],Rev).
-
-myReverse(List,Rev):-
-    myReverse(List,[],Rev).
 
 % Task 2
 
