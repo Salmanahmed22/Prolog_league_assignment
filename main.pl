@@ -75,6 +75,13 @@ most_successful_team(Team) :-
 best_team(Team, Max_Num_of_winning_times,Teams):-
     team(TeamName,_,Num_of_winning_times),
     not_found(TeamName,Teams),
-    (Num_of_winning_times > Max_Num_of_winning_times)
+    (Num_of_winning_times > Max_Num_of_winning_times ->
+        best_team(TeamName,Num_of_winning_times,[TeamName|Teams])
+        ;
+        best_team(Team,Max_Num_of_winning_times,[Team|Teams])
+    ),
+    !.
+
+
 
 
