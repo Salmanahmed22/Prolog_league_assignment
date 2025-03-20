@@ -48,3 +48,15 @@ teams_by_country(Country, N, Count, Teams) :-
     !.
 
 teams_by_country(_, N, N, _) :- !.
+
+
+% TASK 3
+most_successful_team(Team) :-
+    best_team(Team,0,[]).
+
+best_team(Team, Max_Num_of_winning_times,Teams):-
+    team(TeamName,_,Num_of_winning_times),
+    not_found(TeamName,Teams),
+    (Num_of_winning_times > Max_Num_of_winning_times)
+
+
