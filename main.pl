@@ -11,6 +11,8 @@ myReverse([],Acc,Acc).
 myReverse([H|T],Acc,Rev):- myReverse(T,[H|Acc],Rev).
 myReverse(List,Rev):- myReverse(List,[],Rev).
 
+% ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- %
+
 % TASK 1
 
 players_in_team(Team, List) :-
@@ -62,7 +64,9 @@ best_team(Visited, CurrentBest, MaxWins, BestTeam) :-
     ),
     !.
 
-best_team(_, BestTeam, _, BestTeam).  
+best_team(_, BestTeam, _, BestTeam). 
+
+% ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- %
 
 % Task 4
 matches_of_team(Team, L):-
