@@ -124,3 +124,35 @@ helper_top_scorer(_, _,BestPlayer, BestPlayer).
 % ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- %
 
 % Task 7
+most_common_position_in_team(Team, Pos) :-
+    collect_positions(Team, [] , [] ,Positions),  
+    myReverse(Positions, RevPositions),
+    count_positions(RevPositions, [], Counts),
+    find_max_count(Counts, Pos).             
+
+
+collect_positions(Team, Visited, TempPositions , Positions) :-
+    player(Name, Team, Pos),
+    not_found(Name, Visited), 
+    collect_positions(Team, [Name | Visited], [Pos | TempPositions] , Positions). 
+collect_positions(_ , _ , Positions, Positions). 
+
+
+count_positions([], Counts, Counts).
+count_positions([Pos|Rest], Acc, Counts) :-
+    update_count(Pos, Acc, UpdatedAcc),       
+    count_positions(Rest, UpdatedAcc, Counts).
+
+
+update_count(Pos, [], [(Pos, 1)]).        
+update_count(Pos, [(Pos, N)|Rest], [(Pos, N1)|Rest]) :-
+    N1 is N + 1.                          
+update_count(Pos, [Other|Rest], [Other|UpdatedRest]) :-
+    update_count(Pos, Rest, UpdatedRest).   
+
+find_max_count([(Pos, _)], Pos).     
+find_max_count([(Pos1, N1), (Pos2, N2)|Rest], MaxPos) :-
+    (N1 >= N2 ->                              
+        find_max_count([(Pos1, N1)|Rest], MaxPos)  
+    ;
+        find_max_count([(Pos2, N2)|Rest], MaxPos)).
